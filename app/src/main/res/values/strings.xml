@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Movie</string>
+    <dimen name="poster_width" value="180">180dip</dimen>
+</resources>
