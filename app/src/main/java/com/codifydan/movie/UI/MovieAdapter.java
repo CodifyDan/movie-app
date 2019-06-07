@@ -1,15 +1,17 @@
-package com.codifydan.movie;
+package com.codifydan.movie.UI;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codifydan.movie.Model.Movie;
+import com.codifydan.movie.R;
 
 import java.util.List;
 
@@ -41,7 +43,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.TaskItemView
     @Override
     public void onBindViewHolder(@NonNull TaskItemViewHolder taskItemViewHolder, int i) {
         Movie movie = mMovies.get(i);
-        Glide.with(mContext).load("https://image.tmdb.org/t/p/original" + movie.getBackdrop()).into(taskItemViewHolder.mPosterView);
+        String number = (i + 1) + mContext.getResources().getString(R.string.dot);
+        taskItemViewHolder.mMovieNumber.setText(number);
+        Glide.with(mContext).load("https://image.tmdb.org/t/p/original" + movie.getPoster()).into(taskItemViewHolder.mPosterView);
     }
 
     @Override
@@ -51,10 +55,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.TaskItemView
 
     public class TaskItemViewHolder extends RecyclerView.ViewHolder {
         ImageView mPosterView;
+        TextView mMovieNumber;
 
         public TaskItemViewHolder(@NonNull View itemView) {
             super(itemView);
             mPosterView = (ImageView) itemView.findViewById(R.id.poster_image_view);
+            mMovieNumber = itemView.findViewById(R.id.movie_number);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

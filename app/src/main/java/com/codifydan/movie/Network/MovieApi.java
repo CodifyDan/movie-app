@@ -1,4 +1,4 @@
-package com.codifydan.movie;
+package com.codifydan.movie.Network;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

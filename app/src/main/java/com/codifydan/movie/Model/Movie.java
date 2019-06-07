@@ -1,8 +1,10 @@
-package com.codifydan.movie;
+package com.codifydan.movie.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     @SerializedName("backdrop_path")
     String backdrop;
     @SerializedName("poster_path")
@@ -12,11 +14,11 @@ public class Movie {
     @SerializedName("release_date")
     String releaseDate;
     @SerializedName("vote_average")
-    Integer rating;
+    Double rating;
     @SerializedName("overview")
     String overview;
 
-    public Movie(String backdrop, String poster, String title, String releaseDate, Integer rating, String overview) {
+    public Movie(String backdrop, String poster, String title, String releaseDate, Double rating, String overview) {
         this.backdrop = backdrop;
         this.poster = poster;
         this.title = title;
@@ -57,11 +59,11 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

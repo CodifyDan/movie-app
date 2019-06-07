@@ -2,6 +2,7 @@ package com.codifydan.movie;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.codifydan.movie.Model.Movie;
+import com.codifydan.movie.UI.MovieAdapter;
+import com.codifydan.movie.UI.MoviesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +30,16 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Butt
     MovieAdapter mMovieAdapter;
     private List<Movie> mMoviesList;
     MoviesViewModel viewModel;
+    Button mSearchMoviesBtn;
+    TextView mYearInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         rvMovies = findViewById(R.id.rvMovies);
+        mSearchMoviesBtn = findViewById(R.id.search_movies_btn);
+        mYearInput = findViewById(R.id.year_input);
         mMoviesList = new ArrayList<>();
 
         mMovieAdapter = new MovieAdapter(mMoviesList, this);
@@ -46,11 +58,18 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Butt
         viewModel.getMovies().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
-                System.out.println(movies.size());
+                mMoviesList.clear();
+                mMoviesList.addAll(movies);
+                mMovieAdapter.notifyDataSetChanged();
             }
         });
 
-        viewModel.getMovies(2019);
+        mSearchMoviesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.getMovies(Integer.parseInt(mYearInput.getText().toString()));
+            }
+        });
     }
 
 
@@ -103,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Butt
 
     @Override
     public void onSelect(Movie movie) {
-
+        Intent i = new Intent(this, MovieDetail.class);
+        i.putExtra("Movie", movie);
+        startActivity(i);
     }
 }

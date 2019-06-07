@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="dot">.</string>
+    <string name="the_most_popular_movies_of">The most popular movies of</string>
+    <string name="submit">Submit</string>
+    <string name="release">Release</string>
+    <string name="rating">Rating</string>
+    <string name="overview">Overview</string>
     <dimen name="poster_width" value="180">180dip</dimen>
 </resources>
